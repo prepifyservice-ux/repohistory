@@ -20,7 +20,7 @@ COPY prisma ./prisma/
 RUN npm ci
 
 # Build bloxy from GitHub source (install its devDependencies first)
-RUN cd node_modules/bloxy && npm install && npx tsc --skipLibCheck
+RUN cd node_modules/bloxy && npm install && npx tsc --skipLibCheck && rm -rf src tests
 
 # Copy source code
 COPY . .
