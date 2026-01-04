@@ -30,15 +30,17 @@ const argumentTypeMappings = {
 
 const mapArgument = (arg: CommandArgument) => {
     // @ts-ignore
-    const apiArgument: ApplicationCommandOptionData = {
+    const apiArgument: any = {
         name: arg.trigger,
         description: arg.description || 'No description provided.',
         type: argumentTypeMappings[arg.type],
         autocomplete: arg.autocomplete || false,
         required: arg.required !== null && arg.required !== undefined ? arg.required : true,
         choices: arg.choices || [],
-        options: arg.args ? arg.args.map(mapArgument) : [],
         channelTypes: arg.channelTypes,
+    }
+    if (arg.args) {
+        apiArgument.options = arg.args.map(mapArgument);
     }
     return apiArgument;
 }

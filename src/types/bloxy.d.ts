@@ -35,6 +35,7 @@ declare module 'bloxy/dist/structures' {
       name: string;
       rank: number;
     };
+    kickFromGroup(): Promise<any>;
   }
 
   export class GroupRole {

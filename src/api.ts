@@ -42,7 +42,7 @@ if(config.api) {
         const { id } = req.query;
         if(!id) return res.send({ success: false, msg: 'Missing parameters.' });
         try {
-            const robloxUser = await robloxClient.getUser(id as string);
+            const robloxUser = await robloxClient.getUser(parseInt(id as string));
 
             const userData = await provider.findUser(robloxUser.id.toString());
             if(!userData) throw new Error();
