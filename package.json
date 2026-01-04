@@ -15,7 +15,7 @@
   "author": "LengoLabs",
   "license": "MIT",
   "engines": {
-    "node": "18.x"
+    "node": "20.x"
   },
   "devDependencies": {
     "nodemon": "^2.0.15",
