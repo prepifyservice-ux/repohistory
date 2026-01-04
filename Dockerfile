@@ -45,9 +45,6 @@ RUN apt-get update && apt-get install -y \
 COPY package*.json ./
 COPY prisma ./prisma/
 
-# Copy vendor directory (includes prebuilt bloxy)
-COPY --from=builder /app/vendor ./vendor
-
 # Install production dependencies only
 RUN npm ci --only=production
 
