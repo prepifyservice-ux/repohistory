@@ -21,7 +21,13 @@ const handleInteraction = async (payload: Interaction<CacheType>) => {
         if(!permission) {
             context.reply({ embeds: [ getNoPermissionEmbed() ] });
         } else {
-            await context.defer();
+            // Defer with ephemeral for planka commands
+            if(interaction.commandName === 'plankainfo' || interaction.commandName === 'plankachange') {
+                await interaction.deferReply({ ephemeral: true });
+                context.deferred = true;
+            } else {
+                await context.defer();
+            }
             try {
                 (new command()).run(context);
             } catch (err) {

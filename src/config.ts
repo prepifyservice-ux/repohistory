@@ -2,14 +2,14 @@ import { ActivityType } from 'discord.js';
 import { BotConfig } from './structures/types'; 
 
 export const config: BotConfig = {
-    groupId: 0,
+    groupId: 116443775, // Replace with your Roblox group ID
     slashCommands: true,
     legacyCommands: {
         enabled: true,
         prefixes: ['q!'],
     },
     permissions: {
-        all: [''],
+        all: ['1451735840811384973'],
         ranking: [''],
         users: [''],
         shout: [''],
@@ -18,13 +18,14 @@ export const config: BotConfig = {
         admin: [''],
     },
     logChannels: {
-        actions: '',
-        shout: '',
+        actions: '1451736001029341257',
+        shout: '1451736001029341257',
+        componentsV2: '1451736001029341257',
     },
     api: false,
     maximumRank: 255,
-    verificationChecks: false,
-    bloxlinkGuildId: '',
+    verificationChecks: true,
+    bloxlinkGuildId: '1426119038282502226',
     firedRank: 1,
     suspendedRank: 1,
     recordManualActions: true,
@@ -52,4 +53,9 @@ export const config: BotConfig = {
     },
     status: 'online',
     deleteWallURLs: false,
+    planka: {
+        url: process.env.PLANKA_URL || 'http://localhost:1337',
+        adminUsername: process.env.PLANKA_ADMIN_USERNAME || 'admin',
+        adminPassword: process.env.PLANKA_ADMIN_PASSWORD || 'admin',
+    },
 }

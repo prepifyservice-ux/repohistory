@@ -134,6 +134,28 @@ export class CommandContext  {
     }
 
     /**
+     * Send an ephemeral reply (only works for interactions)
+     * 
+     * @param payload
+     */
+    async ephemeralReply(payload: string | InteractionReplyOptions) {
+        this.replied = true;
+        if(this.subject instanceof CommandInteraction) {
+            const subject = this.subject as CommandInteraction;
+            const options = typeof payload === 'string' ? { content: payload, ephemeral: true } : { ...payload, ephemeral: true };
+            
+            if(this.deferred) {
+                return await subject.editReply(options as InteractionReplyOptions);
+            } else {
+                return await subject.reply(options as InteractionReplyOptions);
+            }
+        } else {
+            // For message-based commands, just send normally
+            return await this.subject.channel.send(payload as MessageCreateOptions);
+        }
+    }
+
+    /**
      * Defers a reply.
      */
     async defer() {

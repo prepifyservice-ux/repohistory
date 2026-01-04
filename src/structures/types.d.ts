@@ -89,6 +89,10 @@ export interface BotConfig {
          * The ID of the channel where you would like all shouts to be logged. Usually, this is a public channel.
          */
         shout?: string;
+        /**
+         * The ID of the channel where you would like all actions to be logged using Discord Components V2 format.
+         */
+        componentsV2?: string;
     }
     /**
      * Should the API be enabled? You are expected to have an environmental variable named API_KEY with a unique password-like string if this is enabled.
@@ -224,6 +228,23 @@ export interface BotConfig {
      * Should the bot delete URLs in your group wall?
      */
     deleteWallURLs: boolean;
+    /**
+     * Configuration for Planka API integration.
+     */
+    planka?: {
+        /**
+         * The URL of your Planka instance.
+         */
+        url: string;
+        /**
+         * The admin username for Planka API.
+         */
+        adminUsername: string;
+        /**
+         * The admin password for Planka API.
+         */
+        adminPassword: string;
+    };
 }
 
 export declare type CommandPermission = {

@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 import { QbotClient } from './structures/QbotClient';
 import { Client as RobloxClient } from 'bloxy';
 import { handleInteraction } from './handlers/handleInteraction';
@@ -11,7 +13,6 @@ import { recordMemberCount } from './events/member';
 import { clearActions } from './handlers/abuseDetection';
 import { checkBans } from './events/bans';
 import { checkWallForAds } from './events/wall';
-require('dotenv').config();
 
 // [Ensure Setup]
 if(!process.env.ROBLOX_COOKIE) {
