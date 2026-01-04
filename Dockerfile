@@ -45,8 +45,8 @@ RUN apt-get update && apt-get install -y \
 COPY package*.json ./
 COPY prisma ./prisma/
 
-# Install production dependencies only
-RUN npm ci --only=production
+# Copy node_modules from builder (includes built bloxy from GitHub)
+COPY --from=builder /app/node_modules ./node_modules
 
 # Copy Prisma schema and generate client
 RUN npx prisma generate
