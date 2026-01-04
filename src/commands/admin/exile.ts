@@ -90,7 +90,7 @@ class ExileCommand extends Command {
         if(userData.suspendedUntil) return ctx.reply({ embeds: [ getUserSuspendedEmbed() ] });
 
         try {
-            await robloxMember.kickFromGroup(config.groupId);
+            await robloxMember.kickFromGroup();
             ctx.reply({ embeds: [ await getSuccessfulExileEmbed(robloxUser) ]})
             logAction('Exile', ctx.user, ctx.args['reason'], robloxUser);
         } catch (err) {
