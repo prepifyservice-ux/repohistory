@@ -49,7 +49,7 @@ export default class ClientUser extends PartialUser {
     removeStarCodeAffiliate(): Promise<unknown>;
     getStarCodeAffiliate(): Promise<import("../client/apis/AccountInformationAPI").GetStarCodeAffiliate>;
     addStarCodeAffiliate(code: string): Promise<import("../client/apis/AccountInformationAPI").GetStarCodeAffiliate>;
-    getPasswordStatus(): Promise<import("../client/apis/AuthAPI").GetCurrentPasswordStatus>;
+    getPasswordStatus(): Promise<import("bloxy/src/client/apis/AuthAPI").GetCurrentPasswordStatus>;
     changeUserPassword(newPassword: string, oldPassword: string): Promise<unknown>;
     changeUsername(newUsername: string, password: string): Promise<unknown>;
 }
