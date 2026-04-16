@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "resetSlashCmds": "echo [] > src/resources/commands.json",
     "update": "git fetch && git reset --hard origin/master && git pull",
-    "postinstall": "prisma generate && prisma db push && npm run build && cp src/resources/commands.json dist/resources/commands.json"
+    "postinstall": "prisma generate && prisma db push && npm run build && mkdir -p dist/resources && cp src/resources/commands.json dist/resources/commands.json"
   },
   "author": "LengoLabs",
   "license": "MIT",
