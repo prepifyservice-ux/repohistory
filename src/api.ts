@@ -104,6 +104,8 @@ if(config.api) {
         const { id } = req.body;
         if(!id) return res.send({ success: false, msg: 'Missing parameters.' });
         try {
+            const userData = await provider.findUser(String(id));
+            if(userData.isBanned) return res.send({ success: false, msg: 'User is blacklisted.' });
             const robloxMember = await robloxGroup.getMember(Number(id));
             if(!robloxMember) throw new Error();
             const groupRoles = await robloxGroup.getRoles();
@@ -122,6 +124,8 @@ if(config.api) {
         const { id } = req.body;
         if(!id) return res.send({ success: false, msg: 'Missing parameters.' });
         try {
+            const userData = await provider.findUser(String(id));
+            if(userData.isBanned) return res.send({ success: false, msg: 'User is blacklisted.' });
             const robloxMember = await robloxGroup.getMember(Number(id));
             if(!robloxMember) throw new Error();
             const groupRoles = await robloxGroup.getRoles();
@@ -140,6 +144,8 @@ if(config.api) {
         const { id } = req.body;
         if(!id) return res.send({ success: false, msg: 'Missing parameters.' });
         try {
+            const userData = await provider.findUser(String(id));
+            if(userData.isBanned) return res.send({ success: false, msg: 'User is blacklisted.' });
             const robloxMember = await robloxGroup.getMember(Number(id));
             if(!robloxMember) throw new Error();
             const groupRoles = await robloxGroup.getRoles();
@@ -157,6 +163,8 @@ if(config.api) {
         const { id, role } = req.body;
         if(!id || !role) return res.send({ success: false, msg: 'Missing parameters.' });
         try {
+            const userData = await provider.findUser(String(id));
+            if(userData.isBanned) return res.send({ success: false, msg: 'User is blacklisted.' });
             const robloxMember = await robloxGroup.getMember(Number(id));
             if(!robloxMember) throw new Error();
             const groupRoles = await robloxGroup.getRoles();
@@ -174,6 +182,8 @@ if(config.api) {
         const { id, duration } = req.body;
         if(!id || !duration) return res.send({ success: false, msg: 'Missing parameters.' });
         try {
+            const suspendUserData = await provider.findUser(String(id));
+            if(suspendUserData.isBanned) return res.send({ success: false, msg: 'User is blacklisted.' });
             const robloxMember = await robloxGroup.getMember(Number(id));
             if(!robloxMember) throw new Error();
 
@@ -207,6 +217,8 @@ if(config.api) {
         const { id } = req.body;
         if(!id) return res.send({ success: false, msg: 'Missing parameters.' });
         try {
+            const unsuspendUserData = await provider.findUser(String(id));
+            if(unsuspendUserData.isBanned) return res.send({ success: false, msg: 'User is blacklisted.' });
             const robloxMember = await robloxGroup.getMember(Number(id));
             if(!robloxMember) throw new Error();
 
@@ -272,6 +284,8 @@ if(config.api) {
         const { id } = req.body;
         if(!id) return res.send({ success: false, msg: 'Missing parameters.' });
         try {
+            const rankupUserData = await provider.findUser(String(id));
+            if(rankupUserData.isBanned) return res.send({ success: false, msg: 'User is blacklisted.' });
             const robloxMember = await robloxGroup.getMember(Number(id));
             if(!robloxMember) throw new Error();
 
@@ -298,6 +312,38 @@ if(config.api) {
             return res.send({ success: true });
         } catch (err) {
             return res.send({ success: false, msg: 'Failed to shout.' });
+        }
+    });
+
+    app.post('/blacklist', async (req, res) => {
+        const { id } = req.body;
+        if(!id) return res.send({ success: false, msg: 'Missing parameters.' });
+        try {
+            const robloxMember = await robloxGroup.getMember(Number(id));
+            if(!robloxMember) throw new Error();
+            const userData = await provider.findUser(robloxMember.id.toString());
+            if(userData.isBanned) return res.send({ success: false, msg: 'User is already blacklisted.' });
+            await provider.updateUser(robloxMember.id.toString(), { isBanned: true });
+            logAction('Blacklist', 'API Action', null, robloxMember);
+            return res.send({ success: true });
+        } catch (err) {
+            return res.send({ success: false, msg: 'Failed to blacklist user.' });
+        }
+    });
+
+    app.post('/unblacklist', async (req, res) => {
+        const { id } = req.body;
+        if(!id) return res.send({ success: false, msg: 'Missing parameters.' });
+        try {
+            const robloxMember = await robloxGroup.getMember(Number(id));
+            if(!robloxMember) throw new Error();
+            const userData = await provider.findUser(robloxMember.id.toString());
+            if(!userData.isBanned) return res.send({ success: false, msg: 'User is not blacklisted.' });
+            await provider.updateUser(robloxMember.id.toString(), { isBanned: false });
+            logAction('Unblacklist', 'API Action', null, robloxMember);
+            return res.send({ success: true });
+        } catch (err) {
+            return res.send({ success: false, msg: 'Failed to unblacklist user.' });
         }
     });
 
